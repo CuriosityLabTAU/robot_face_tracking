@@ -18,7 +18,7 @@ def start_working():
 
     def worker_convert_coordinate():
         print('starting convert coordinate using 360...')
-        os.system('python convert_coordinates.py 3')
+        os.system('python convert_coordinates.py %d' % camera_type)
 
         # print('starting convert coordinate using USB...')
         # os.system('python convert_coordinates.py 1')
@@ -33,5 +33,11 @@ def start_working():
     run_thread(worker_opencv_face_detection)
     run_thread(worker_choose_face)
     run_thread(worker_convert_coordinate)
+
+
+if len(sys.argv) > 1:
+    camera_type = int(sys.argv[1])
+else:
+    camera_type = 2
 
 start_working()

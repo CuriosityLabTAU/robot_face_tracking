@@ -48,8 +48,8 @@ class Convert_coordinates():
             self.video_x_range = [1060, 920]
             self.video_y_range = [330, 210]
         if camera_type == 3:
-            self.video_x_range = [400, 150]
-            self.video_y_range = [32, 62]
+            self.video_x_range = [1200, 680]
+            self.video_y_range = [46, 50]
 
 
     def map_angles(self, video_range, real_range, pos_video):
@@ -69,7 +69,7 @@ class Convert_coordinates():
         pitch_robot = self.map_angles(self.video_y_range, self.robot_y_range, y)
         neck_robot = self.map_angles(self.video_x_range, self.robot_neck_range, x)
         print x, y
-        #print "pixel", x, ",", y, "angles", yaw_robot, ",", pitch_robot, ",", neck_robot
+        print "pixel", x, ",", y, "angles", yaw_robot, ",", pitch_robot, ",", neck_robot
         self.sendCommand(yaw_robot, pitch_robot, neck_robot, self.head_body)
 
     def sendCommand(self, yaw_robot, pitch_robot, neck_robot, head_body):
