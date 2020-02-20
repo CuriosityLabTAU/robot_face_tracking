@@ -5,7 +5,7 @@ from std_msgs.msg import Float32MultiArray
 import numpy as np
 import sys
 
-camera_type = 1  # 1 = standard usb camera; 2 = 360 camera
+camera_type = 1  # 1 = standard usb camera; 2 = 360 camera behind the robot on th left side; 3- 360 camera infront of the robot
 
 class Convert_coordinates():
 
@@ -40,12 +40,17 @@ class Convert_coordinates():
         self.robot_x_range = [3.1, 2]  # [3.5, 1.7]
         self.robot_y_range = [2.2, 2.9]
         self.robot_neck_range = [2.2, 3.1]
+        print 'camera type = ', camera_type
         if camera_type == 1:  # for standard usb camera
             self.video_x_range = [525, 130]
             self.video_y_range = [370, 130]
         if camera_type == 2:  # for 360 camera
             self.video_x_range = [1060, 920]
             self.video_y_range = [330, 210]
+        if camera_type == 3:
+            self.video_x_range = [400, 150]
+            self.video_y_range = [32, 62]
+
 
     def map_angles(self, video_range, real_range, pos_video):
         pos_real = real_range[0] + (pos_video - video_range[0]) * (
@@ -63,7 +68,8 @@ class Convert_coordinates():
         yaw_robot = self.map_angles(self.video_x_range, self.robot_x_range, x)
         pitch_robot = self.map_angles(self.video_y_range, self.robot_y_range, y)
         neck_robot = self.map_angles(self.video_x_range, self.robot_neck_range, x)
-        print "pixel", x, ",", y, "angles", yaw_robot, ",", pitch_robot, ",", neck_robot
+        print x, y
+        #print "pixel", x, ",", y, "angles", yaw_robot, ",", pitch_robot, ",", neck_robot
         self.sendCommand(yaw_robot, pitch_robot, neck_robot, self.head_body)
 
     def sendCommand(self, yaw_robot, pitch_robot, neck_robot, head_body):
@@ -79,9 +85,9 @@ class Convert_coordinates():
             # new_command.angle = temp_angle
             new_command.angle[2] = neck_robot
 
-        print "####", new_command.angle
+        #print "####", new_command.angle
         new_command.speed = [1.5, 1.5, 2, 7, 5, 5, 5, 5]
-        print "yaw:", yaw_robot, "pitch:", pitch_robot, "neck angle", neck_robot
+        #print "yaw:", yaw_robot, "pitch:", pitch_robot, "neck angle", neck_robot
         self.publisher.publish(new_command)
 
     def xy2angles(self, xRaw, yRaw):

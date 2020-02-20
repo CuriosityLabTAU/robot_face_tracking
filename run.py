@@ -18,7 +18,7 @@ def start_working():
 
     def worker_convert_coordinate():
         print('starting convert coordinate using 360...')
-        os.system('python convert_coordinates.py 2')
+        os.system('python convert_coordinates.py 3')
 
         # print('starting convert coordinate using USB...')
         # os.system('python convert_coordinates.py 1')
