@@ -4,6 +4,7 @@ from opencv_apps.msg import FaceArrayStamped
 from std_msgs.msg import Float32MultiArray
 import numpy as np
 import sys
+from datetime import datetime
 
 camera_type = 1  # 1 = standard usb camera; 2 = 360 camera behind the robot on th left side; 3- 360 camera infront of the robot
 
@@ -68,8 +69,8 @@ class Convert_coordinates():
         yaw_robot = self.map_angles(self.video_x_range, self.robot_x_range, x)
         pitch_robot = self.map_angles(self.video_y_range, self.robot_y_range, y)
         neck_robot = self.map_angles(self.video_x_range, self.robot_neck_range, x)
-        print x, y
-        print "pixel", x, ",", y, "angles", yaw_robot, ",", pitch_robot, ",", neck_robot
+        #print x, y
+        #print "pixel", x, ",", y, "angles", yaw_robot, ",", pitch_robot, ",", neck_robot
         self.sendCommand(yaw_robot, pitch_robot, neck_robot, self.head_body)
 
     def sendCommand(self, yaw_robot, pitch_robot, neck_robot, head_body):
@@ -86,9 +87,11 @@ class Convert_coordinates():
             new_command.angle[2] = neck_robot
 
         #print "####", new_command.angle
-        new_command.speed = [1.5, 1.5, 2, 7, 5, 5, 5, 5]
+        new_command.speed = [1.5, 1.5, 0.8, 7, 5, 5, 5, 5]
         #print "yaw:", yaw_robot, "pitch:", pitch_robot, "neck angle", neck_robot
         self.publisher.publish(new_command)
+        print new_command.speed
+        #print 'face command time: ', datetime.now()
 
     def xy2angles(self, xRaw, yRaw):
         x = xRaw - self.xCal

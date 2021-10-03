@@ -6,6 +6,12 @@ import sys
 
 def start_working():
 
+
+    def worker_usb_camera():
+        print('starting usb camera...')
+        os.system('roslaunch usb_cam usb_cam-test.launch')
+        return
+
     def worker_opencv_face_detection():
         print('starting opencv...')
         os.system('roslaunch opencv_apps face_detection.launch')
@@ -30,6 +36,7 @@ def start_working():
         threading.Thread(target=worker).start()
         threading._sleep(2.0)
 
+    run_thread(worker_usb_camera)
     run_thread(worker_opencv_face_detection)
     run_thread(worker_choose_face)
     run_thread(worker_convert_coordinate)

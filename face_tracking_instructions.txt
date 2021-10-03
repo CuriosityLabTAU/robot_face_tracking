@@ -18,4 +18,4 @@ in new terminal run: roslaunch opencv_apps face_detection.launch
 in new terminal run: choose_face.py
 in convert_coordination.py  - set the value - camera_type = 2
 in new terminal run: convert_coordination.py
-in new terminal run: expose.py
+in new terminal run: expose.pycd
