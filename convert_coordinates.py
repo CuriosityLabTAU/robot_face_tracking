@@ -86,6 +86,7 @@ class Convert_coordinates():
             # new_command.angle = temp_angle
             new_command.angle[2] = neck_robot
 
+
         #print "####", new_command.angle
         new_command.speed = [1.5, 1.5, 0.8, 7, 5, 5, 5, 5]
         #print "yaw:", yaw_robot, "pitch:", pitch_robot, "neck angle", neck_robot
